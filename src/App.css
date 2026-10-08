@@ -1,0 +1,463 @@
+:root {
+  --bg: #eef0f8;
+  --bg-glow-1: #dcd9ff;
+  --bg-glow-2: #d3ecff;
+  --card: #ffffff;
+  --surface: #f5f6fb;
+  --surface-hover: #eceef7;
+  --text: #191b2a;
+  --muted: #6f7590;
+  --border: #e4e7f1;
+  --accent: #5b4fe9;
+  --accent-2: #8b5cf6;
+  --on-accent: #ffffff;
+  --danger: #dc2626;
+  --shadow: 0 24px 60px -20px rgba(49, 46, 129, 0.28);
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0e0f17;
+    --bg-glow-1: #241f52;
+    --bg-glow-2: #10283d;
+    --card: #181a26;
+    --surface: #1f2231;
+    --surface-hover: #272a3c;
+    --text: #eef0f8;
+    --muted: #9399b2;
+    --border: #2a2d40;
+    --accent: #8f86ff;
+    --accent-2: #b794ff;
+    --on-accent: #11121b;
+    --danger: #f87171;
+    --shadow: 0 24px 60px -20px rgba(0, 0, 0, 0.7);
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--text);
+  background:
+    radial-gradient(60rem 30rem at 10% -10%, var(--bg-glow-1), transparent 60%),
+    radial-gradient(50rem 30rem at 100% 0%, var(--bg-glow-2), transparent 60%),
+    var(--bg);
+  background-attachment: fixed;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+svg {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.app {
+  max-width: 540px;
+  margin: 56px auto;
+  padding: 32px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  box-shadow: var(--shadow);
+}
+
+@media (max-width: 580px) {
+  .app {
+    margin: 16px;
+    padding: 22px 18px;
+    border-radius: 20px;
+  }
+}
+
+/* Header */
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.date {
+  margin: 0 0 6px;
+  color: var(--accent);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+h1 {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+
+.summary {
+  margin: 6px 0 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.ring {
+  position: relative;
+  width: 72px;
+  height: 72px;
+  flex-shrink: 0;
+}
+
+.ring svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+  stroke-width: 5;
+}
+
+.ring-track {
+  stroke: var(--surface-hover);
+}
+
+.ring-fill {
+  stroke: var(--accent);
+  transition: stroke-dashoffset 0.5s ease;
+}
+
+.ring span {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-size: 0.95rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Add form */
+
+.add-form {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 6px 6px 18px;
+  background: var(--surface);
+  border: 1.5px solid transparent;
+  border-radius: 16px;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.add-form:focus-within {
+  background: var(--card);
+  border-color: var(--accent);
+}
+
+.add-form input {
+  flex: 1;
+  min-width: 0;
+  padding: 10px 0;
+  font: inherit;
+  color: var(--text);
+  background: transparent;
+  border: none;
+  outline: none;
+}
+
+.add-form input::placeholder {
+  color: var(--muted);
+}
+
+.add-form button {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+  color: var(--on-accent);
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  border: none;
+  border-radius: 12px;
+  transition: transform 0.15s, opacity 0.15s, filter 0.15s;
+}
+
+.add-form button svg {
+  width: 20px;
+  height: 20px;
+  stroke-width: 2.5;
+}
+
+.add-form button:hover:not(:disabled) {
+  filter: brightness(1.1);
+  transform: scale(1.05);
+}
+
+.add-form button:active:not(:disabled) {
+  transform: scale(0.95);
+}
+
+.add-form button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Filters */
+
+.filters {
+  display: flex;
+  gap: 4px;
+  margin: 20px 0 14px;
+  padding: 4px;
+  background: var(--surface);
+  border-radius: 14px;
+}
+
+.filters button {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 10px;
+  color: var(--muted);
+  background: transparent;
+  border: none;
+  border-radius: 10px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  transition: color 0.15s, background 0.15s;
+}
+
+.filters button:hover {
+  color: var(--text);
+}
+
+.filters button.active {
+  color: var(--text);
+  background: var(--card);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+
+.count {
+  min-width: 22px;
+  padding: 1px 6px;
+  color: var(--muted);
+  background: var(--surface-hover);
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.filters button.active .count {
+  color: var(--on-accent);
+  background: var(--accent);
+}
+
+/* Task list */
+
+.task-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.task-list li {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px 4px 14px;
+  background: var(--surface);
+  border-radius: 14px;
+  transition: background 0.15s;
+  animation: slide-in 0.25s ease;
+}
+
+.task-list li:hover {
+  background: var(--surface-hover);
+}
+
+@keyframes slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+}
+
+.task-list label {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  padding: 10px 0;
+  cursor: pointer;
+}
+
+/* The real checkbox stays in the page for keyboards and screen readers;
+   the .check span next to it is what you see. */
+.task-list input[type='checkbox'] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+.check {
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  color: var(--on-accent);
+  border: 2px solid var(--muted);
+  border-radius: 50%;
+  transition: background 0.15s, border-color 0.15s, transform 0.15s;
+}
+
+.check svg {
+  width: 14px;
+  height: 14px;
+  stroke-width: 3;
+  stroke-dasharray: 24;
+  stroke-dashoffset: 24;
+  transition: stroke-dashoffset 0.2s ease 0.05s;
+}
+
+.task-list label:hover .check {
+  border-color: var(--accent);
+}
+
+.task-list input:focus-visible + .check {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.task-list input:checked + .check {
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  border-color: transparent;
+  transform: scale(1.05);
+}
+
+.task-list input:checked + .check svg {
+  stroke-dashoffset: 0;
+}
+
+.task-text {
+  overflow-wrap: anywhere;
+  transition: color 0.15s;
+}
+
+.task-list li.completed .task-text {
+  color: var(--muted);
+  text-decoration: line-through;
+}
+
+.delete {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+  color: var(--muted);
+  background: transparent;
+  border: none;
+  border-radius: 10px;
+  opacity: 0;
+  transition: opacity 0.15s, color 0.15s, background 0.15s;
+}
+
+.delete svg {
+  width: 18px;
+  height: 18px;
+  stroke-width: 1.8;
+}
+
+.task-list li:hover .delete,
+.delete:focus-visible {
+  opacity: 1;
+}
+
+/* Touch screens have no hover, so always show the delete button there */
+@media (hover: none) {
+  .delete {
+    opacity: 1;
+  }
+}
+
+.delete:hover {
+  color: var(--danger);
+  background: color-mix(in srgb, var(--danger) 14%, transparent);
+}
+
+/* Empty state */
+
+.empty {
+  padding: 36px 0 20px;
+  color: var(--muted);
+  text-align: center;
+}
+
+.empty svg {
+  width: 44px;
+  height: 44px;
+  stroke-width: 1.5;
+  opacity: 0.6;
+}
+
+.empty p {
+  margin: 10px 0 0;
+}
+
+/* Footer */
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 18px;
+  padding-top: 16px;
+  color: var(--muted);
+  border-top: 1px solid var(--border);
+  font-size: 0.875rem;
+}
+
+.footer button {
+  padding: 6px 10px;
+  color: var(--muted);
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+.footer button:hover {
+  color: var(--danger);
+  background: color-mix(in srgb, var(--danger) 12%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
